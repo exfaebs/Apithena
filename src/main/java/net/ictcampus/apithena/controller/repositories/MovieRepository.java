@@ -1,7 +1,6 @@
-package net.ictcampus.campflix.controller.repositories;
+package net.ictcampus.apithena.controller.repositories;
 
-import net.ictcampus.campflix.model.models.Movie;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.model.models.Movie;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

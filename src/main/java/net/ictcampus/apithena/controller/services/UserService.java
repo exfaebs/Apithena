@@ -1,7 +1,7 @@
-package net.ictcampus.campflix.controller.services;
+package net.ictcampus.apithena.controller.services;
 
-import net.ictcampus.campflix.controller.repositories.UserRepository;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.controller.repositories.UserRepository;
+import net.ictcampus.apithena.model.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

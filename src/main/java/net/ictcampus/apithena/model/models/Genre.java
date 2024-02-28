@@ -1,4 +1,4 @@
-package net.ictcampus.campflix.model.models;
+package net.ictcampus.apithena.model.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

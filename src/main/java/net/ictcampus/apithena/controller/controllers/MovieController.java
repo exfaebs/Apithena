@@ -1,10 +1,7 @@
-package net.ictcampus.campflix.controller.controllers;
+package net.ictcampus.apithena.controller.controllers;
 
-import net.ictcampus.campflix.controller.services.MovieService;
-import net.ictcampus.campflix.controller.services.UserService;
-import net.ictcampus.campflix.model.models.Genre;
-import net.ictcampus.campflix.model.models.Movie;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.controller.services.MovieService;
+import net.ictcampus.apithena.model.models.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

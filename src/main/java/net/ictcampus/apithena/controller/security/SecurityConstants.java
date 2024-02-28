@@ -1,4 +1,4 @@
-package net.ictcampus.campflix.controller.security;
+package net.ictcampus.apithena.controller.security;
 
 public class SecurityConstants {
     public static final String SIGN_UP_URL = "/users/sign-up";

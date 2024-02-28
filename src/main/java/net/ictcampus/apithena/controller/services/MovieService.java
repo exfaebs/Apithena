@@ -1,17 +1,10 @@
-package net.ictcampus.campflix.controller.services;
+package net.ictcampus.apithena.controller.services;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import net.ictcampus.campflix.controller.repositories.MovieRepository;
-import net.ictcampus.campflix.model.models.Genre;
-import net.ictcampus.campflix.model.models.Movie;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.controller.repositories.MovieRepository;
+import net.ictcampus.apithena.model.models.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 

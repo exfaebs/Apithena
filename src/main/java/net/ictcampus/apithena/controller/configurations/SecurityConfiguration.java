@@ -1,8 +1,8 @@
-package net.ictcampus.campflix.controller.configurations;
+package net.ictcampus.apithena.controller.configurations;
 
-import net.ictcampus.campflix.controller.security.JWTAuthenticationFilter;
-import net.ictcampus.campflix.controller.security.JWTAuthorizationFilter;
-import net.ictcampus.campflix.controller.services.UserDetailsServiceImpl;
+import net.ictcampus.apithena.controller.security.JWTAuthenticationFilter;
+import net.ictcampus.apithena.controller.security.JWTAuthorizationFilter;
+import net.ictcampus.apithena.controller.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,14 +11,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static net.ictcampus.campflix.controller.security.SecurityConstants.API_DOCUMENTATION_URLS;
-import static net.ictcampus.campflix.controller.security.SecurityConstants.SIGN_UP_URL;
+import static net.ictcampus.apithena.controller.security.SecurityConstants.API_DOCUMENTATION_URLS;
+import static net.ictcampus.apithena.controller.security.SecurityConstants.SIGN_UP_URL;
 import static org.apache.commons.lang3.BooleanUtils.and;
 
 @Configuration

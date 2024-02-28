@@ -1,12 +1,12 @@
-package net.ictcampus.campflix.controller.controllers;
+package net.ictcampus.apithena.controller.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import net.ictcampus.campflix.controller.services.UserService;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.controller.services.UserService;
+import net.ictcampus.apithena.model.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

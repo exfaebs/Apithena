@@ -1,4 +1,4 @@
-package net.ictcampus.campflix.controller.configurations;
+package net.ictcampus.apithena.controller.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

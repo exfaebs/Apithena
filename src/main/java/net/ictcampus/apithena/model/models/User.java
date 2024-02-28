@@ -1,7 +1,6 @@
-package net.ictcampus.campflix.model.models;
+package net.ictcampus.apithena.model.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.context.annotation.Primary;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

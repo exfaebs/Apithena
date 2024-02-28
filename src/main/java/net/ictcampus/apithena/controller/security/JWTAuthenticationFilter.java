@@ -1,8 +1,8 @@
-package net.ictcampus.campflix.controller.security;
+package net.ictcampus.apithena.controller.security;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.model.models.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import static net.ictcampus.campflix.controller.security.SecurityConstants.*;
-import static net.ictcampus.campflix.controller.security.SecurityConstants.TOKEN_PREFIX;
+import static net.ictcampus.apithena.controller.security.SecurityConstants.*;
+import static net.ictcampus.apithena.controller.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;

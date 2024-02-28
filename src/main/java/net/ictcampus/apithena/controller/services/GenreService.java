@@ -1,9 +1,7 @@
-package net.ictcampus.campflix.controller.services;
+package net.ictcampus.apithena.controller.services;
 
-import net.ictcampus.campflix.controller.repositories.GenreRepository;
-import net.ictcampus.campflix.model.models.Genre;
-import net.ictcampus.campflix.model.models.Movie;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.controller.repositories.GenreRepository;
+import net.ictcampus.apithena.model.models.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

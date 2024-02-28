@@ -1,8 +1,8 @@
 
-package net.ictcampus.campflix.controller.services;
+package net.ictcampus.apithena.controller.services;
 
-import net.ictcampus.campflix.controller.repositories.UserRepository;
-import net.ictcampus.campflix.model.models.User;
+import net.ictcampus.apithena.controller.repositories.UserRepository;
+import net.ictcampus.apithena.model.models.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
