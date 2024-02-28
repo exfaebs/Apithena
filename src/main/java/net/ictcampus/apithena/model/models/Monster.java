@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Genre {
+public class Monster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,7 +20,7 @@ public class Genre {
 
     @OneToMany //Wir haben eine 1:m Beziehung Genre:Movie
     @JsonBackReference //Verhindert endlos-loop
-    private Set<Movie> movies = new HashSet<>();
+    private Set<God> gods = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -38,11 +38,11 @@ public class Genre {
         this.name = name;
     }
 
-    public Set<Movie> getMovies() {
-        return movies;
+    public Set<God> getMovies() {
+        return gods;
     }
 
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
+    public void setMovies(Set<God> gods) {
+        this.gods = gods;
     }
 }

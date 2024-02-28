@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Movie {
+public class God {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "genre_id") //Hibernate wird mitgeteilt, wo die betreffende Zeile in der Datenbank ist.
-    private Genre genre;
+    private Monster monster;
 
     public Integer getId() {
         return id;
@@ -47,11 +47,11 @@ public class Movie {
         this.duration = duration;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public Monster getGenre() {
+        return monster;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setGenre(Monster monster) {
+        this.monster = monster;
     }
 }

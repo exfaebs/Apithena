@@ -1,7 +1,7 @@
 package net.ictcampus.apithena.controller.controllers;
 
 import net.ictcampus.apithena.controller.services.MovieService;
-import net.ictcampus.apithena.model.models.Movie;
+import net.ictcampus.apithena.model.models.God;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +12,17 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/movies/")
-public class MovieController {
+public class GodController {
 
     private final MovieService movieService;
 
     @Autowired
-    public MovieController(MovieService movieService) {
+    public GodController(MovieService movieService) {
         this.movieService = movieService;
     }
 
     @GetMapping(path = "{id}")
-    public Movie findById(@PathVariable Integer id) {
+    public God findById(@PathVariable Integer id) {
         try {
             return movieService.findById(id);
         } catch (EntityNotFoundException e) {
@@ -31,8 +31,8 @@ public class MovieController {
     }
 
     @GetMapping
-    public Iterable<Movie> findByNameORGenreName(@RequestParam(required = false) String name,
-                                                 @RequestParam(required = false) String genre) {
+    public Iterable<God> findByNameORGenreName(@RequestParam(required = false) String name,
+                                               @RequestParam(required = false) String genre) {
         try {
             if (name != null) {
                 return movieService.findByMovieName(name);
@@ -47,10 +47,10 @@ public class MovieController {
     }
 
     @PostMapping(consumes = "application/json")
-    public void insert(@Valid @RequestBody Movie movie) {
+    public void insert(@Valid @RequestBody God god) {
         try {
 
-            movieService.insert(movie);
+            movieService.insert(god);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert movie");
         }
@@ -59,17 +59,17 @@ public class MovieController {
     @DeleteMapping(path = {"{id}"})
     public void deleteById(@PathVariable Integer id) {
         try {
-            Movie movie = movieService.findById(id);
-            movieService.delete(movie);
+            God god = movieService.findById(id);
+            movieService.delete(god);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
 
     @PutMapping(consumes = "application/json")
-    public void update(@Valid @RequestBody Movie movie) { //todo check if working
+    public void update(@Valid @RequestBody God god) { //todo check if working
         try {
-            movieService.update(movie);
+            movieService.update(god);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update");
         }

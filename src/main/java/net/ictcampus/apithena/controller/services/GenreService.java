@@ -1,7 +1,7 @@
 package net.ictcampus.apithena.controller.services;
 
-import net.ictcampus.apithena.controller.repositories.GenreRepository;
-import net.ictcampus.apithena.model.models.Genre;
+import net.ictcampus.apithena.controller.repositories.MonsterRepository;
+import net.ictcampus.apithena.model.models.Monster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,30 +11,31 @@ import java.util.Optional;
 @Service
 public class GenreService {
 
-    private final GenreRepository genreRepository;
+    private final MonsterRepository monsterRepository;
     @Autowired
-    public GenreService(GenreRepository genreRepository) {
-        this.genreRepository = genreRepository;
+    public GenreService(MonsterRepository monsterRepository) {
+        this.monsterRepository = monsterRepository;
     }
 
-    public Genre findById(Integer id){
-        Optional<Genre> genre = genreRepository.findById(id);
+    public Monster findById(Integer id){
+        Optional<Monster> genre = monsterRepository.findById(id);
         return genre.orElseThrow(EntityNotFoundException::new); //Entity Genre exists or Error is thrown
     }
-    public Iterable<Genre> findByName(String query){
-        Iterable<Genre> genreIterable = genreRepository.findByGenreName(query);
+    public Iterable<Monster> findByName(String query){
+        Iterable<Monster> genreIterable = monsterRepository.findByGenreName(query);
         return genreIterable;
     }
 
-    public Iterable<Genre> findAll(){
-        Iterable<Genre> genreIterable = genreRepository.findAll();
+    public Iterable<Monster> findAll(){
+        Iterable<Monster> genreIterable = monsterRepository.findAll();
         return genreIterable;
     }
 
-    public void insert(Genre genre){
-        genreRepository.save(genre);
+    public void insert(Monster monster){
+        monsterRepository.save(monster);
     }
 
-    public void update(Genre genre) {genreRepository.save(genre);}
+    public void update(Monster monster) {
+        monsterRepository.save(monster);}
 
 }

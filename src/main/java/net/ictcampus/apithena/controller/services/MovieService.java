@@ -1,7 +1,7 @@
 package net.ictcampus.apithena.controller.services;
 
-import net.ictcampus.apithena.controller.repositories.MovieRepository;
-import net.ictcampus.apithena.model.models.Movie;
+import net.ictcampus.apithena.controller.repositories.GodRepository;
+import net.ictcampus.apithena.model.models.God;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,39 +10,40 @@ import java.util.Optional;
 
 @Service
 public class MovieService {
-    private final MovieRepository movieRepository;
+    private final GodRepository godRepository;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    public MovieService(GodRepository godRepository) {
+        this.godRepository = godRepository;
     }
 
-    public Movie findById(Integer id){
-        Optional<Movie> movie = movieRepository.findById(id); //Evtl gibt es keinen Eintrag, daher wird es als Optional designiert
+    public God findById(Integer id){
+        Optional<God> movie = godRepository.findById(id); //Evtl gibt es keinen Eintrag, daher wird es als Optional designiert
         return movie.orElseThrow(EntityNotFoundException::new);
     }
 
-    public Iterable<Movie> findByMovieName(String query){
-        Iterable<Movie> movieIterable = movieRepository.findByMovieName(query);
+    public Iterable<God> findByMovieName(String query){
+        Iterable<God> movieIterable = godRepository.findByMovieName(query);
         return movieIterable;
     }
-    public Iterable<Movie> findByGenreName(String query){
-        Iterable<Movie> movieIterable = movieRepository.findByGenreName(query);
+    public Iterable<God> findByGenreName(String query){
+        Iterable<God> movieIterable = godRepository.findByGenreName(query);
         return movieIterable;
     }
 
-    public Iterable<Movie> findAll(){
-        Iterable<Movie> movieIterable = movieRepository.findAll();
+    public Iterable<God> findAll(){
+        Iterable<God> movieIterable = godRepository.findAll();
         return movieIterable;
     }
-    public void insert(Movie movie){
-        movieRepository.save(movie);
+    public void insert(God god){
+        godRepository.save(god);
     }
 
 
-    public void delete(Movie movie){
-        movieRepository.delete(movie);
+    public void delete(God god){
+        godRepository.delete(god);
     }
 
-    public void update(Movie movie) {movieRepository.save(movie);}
+    public void update(God god) {
+        godRepository.save(god);}
 }

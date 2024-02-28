@@ -49,3 +49,10 @@ replay_pid*
 /.gradle/8.5/checksums/md5-checksums.bin
 /.gradle/8.5/checksums/sha1-checksums.bin
 /.idea/modules/apithena.iml
+/.gradle/8.5/executionHistory/executionHistory.bin
+/.gradle/file-system.probe
+/.gradle/8.5/fileHashes/fileHashes.bin
+/.gradle/buildOutputCleanup/outputFiles.bin
+/build/tmp/compileJava/previous-compilation-data.bin
+/.gradle/8.5/fileHashes/resourceHashesCache.bin
+/.idea/uiDesigner.xml
