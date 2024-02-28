@@ -9,11 +9,11 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
-public class MovieService {
+public class GodService {
     private final GodRepository godRepository;
 
     @Autowired
-    public MovieService(GodRepository godRepository) {
+    public GodService(GodRepository godRepository) {
         this.godRepository = godRepository;
     }
 

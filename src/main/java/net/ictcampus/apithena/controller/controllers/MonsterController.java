@@ -1,6 +1,6 @@
 package net.ictcampus.apithena.controller.controllers;
 
-import net.ictcampus.apithena.controller.services.GenreService;
+import net.ictcampus.apithena.controller.services.MonsterService;
 import net.ictcampus.apithena.model.models.Monster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,17 +13,17 @@ import javax.persistence.EntityNotFoundException;
 @RequestMapping("/genres/")
 public class MonsterController {
 
-    private final GenreService genreService;
+    private final MonsterService monsterService;
 
     @Autowired
-    public MonsterController(GenreService genreService) {
-        this.genreService = genreService;
+    public MonsterController(MonsterService monsterService) {
+        this.monsterService = monsterService;
     }
 
     @GetMapping(path="{id}")
     public Monster findById(@PathVariable Integer id){
         try{
-            return genreService.findById(id);
+            return monsterService.findById(id);
         } catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre not Found");
         }
@@ -33,9 +33,9 @@ public class MonsterController {
     public Iterable<Monster> findByName(@RequestParam(required = false) String name) {
         try{
             if (name != null ){
-                return genreService.findByName(name);
+                return monsterService.findByName(name);
             } else {
-                return genreService.findAll();
+                return monsterService.findAll();
             }
         } catch(EntityNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
@@ -46,7 +46,7 @@ public class MonsterController {
     public void insert(@RequestBody Monster monster){
         try{
             System.out.println(monster.getName()); //todo remove after debug
-            genreService.insert(monster);
+            monsterService.insert(monster);
         } catch(RuntimeException e){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert Genre");
         }
@@ -55,7 +55,7 @@ public class MonsterController {
     @PutMapping(consumes = "application/json")
     public void update(@RequestBody Monster monster) {
         try{
-            genreService.update(monster);
+            monsterService.update(monster);
         } catch(RuntimeException e){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update");
         }

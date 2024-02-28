@@ -9,11 +9,11 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
-public class GenreService {
+public class MonsterService {
 
     private final MonsterRepository monsterRepository;
     @Autowired
-    public GenreService(MonsterRepository monsterRepository) {
+    public MonsterService(MonsterRepository monsterRepository) {
         this.monsterRepository = monsterRepository;
     }
 

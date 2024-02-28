@@ -1,6 +1,6 @@
 package net.ictcampus.apithena.controller.controllers;
 
-import net.ictcampus.apithena.controller.services.MovieService;
+import net.ictcampus.apithena.controller.services.GodService;
 import net.ictcampus.apithena.model.models.God;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,17 +14,17 @@ import javax.validation.Valid;
 @RequestMapping("/movies/")
 public class GodController {
 
-    private final MovieService movieService;
+    private final GodService godService;
 
     @Autowired
-    public GodController(MovieService movieService) {
-        this.movieService = movieService;
+    public GodController(GodService godService) {
+        this.godService = godService;
     }
 
     @GetMapping(path = "{id}")
     public God findById(@PathVariable Integer id) {
         try {
-            return movieService.findById(id);
+            return godService.findById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
         }
@@ -35,11 +35,11 @@ public class GodController {
                                                @RequestParam(required = false) String genre) {
         try {
             if (name != null) {
-                return movieService.findByMovieName(name);
+                return godService.findByMovieName(name);
             } else if (genre != null) {
-                return movieService.findByGenreName(genre);
+                return godService.findByGenreName(genre);
             } else {
-                return movieService.findAll();
+                return godService.findAll();
             }
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
@@ -50,7 +50,7 @@ public class GodController {
     public void insert(@Valid @RequestBody God god) {
         try {
 
-            movieService.insert(god);
+            godService.insert(god);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert movie");
         }
@@ -59,8 +59,8 @@ public class GodController {
     @DeleteMapping(path = {"{id}"})
     public void deleteById(@PathVariable Integer id) {
         try {
-            God god = movieService.findById(id);
-            movieService.delete(god);
+            God god = godService.findById(id);
+            godService.delete(god);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
@@ -69,7 +69,7 @@ public class GodController {
     @PutMapping(consumes = "application/json")
     public void update(@Valid @RequestBody God god) { //todo check if working
         try {
-            movieService.update(god);
+            godService.update(god);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update");
         }
