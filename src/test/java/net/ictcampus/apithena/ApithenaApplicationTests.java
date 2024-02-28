@@ -1,0 +1,13 @@
+package net.ictcampus.apithena;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ApithenaApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
