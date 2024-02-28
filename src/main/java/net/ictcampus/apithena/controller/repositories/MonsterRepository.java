@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MonsterRepository extends CrudRepository<Monster, Integer> {
-    @Query("SELECT g FROM Monster g WHERE g.name LIKE CONCAT ('%', :name, '%')")
-    Iterable<Monster> findByGenreName(@Param("name") String name);
+
+    Iterable<Monster> findMonsterByName(@Param("name") String name);
 }

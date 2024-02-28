@@ -22,7 +22,7 @@ public class MonsterService {
         return genre.orElseThrow(EntityNotFoundException::new); //Entity Genre exists or Error is thrown
     }
     public Iterable<Monster> findByName(String query){
-        Iterable<Monster> genreIterable = monsterRepository.findByGenreName(query);
+        Iterable<Monster> genreIterable = monsterRepository.findMonsterByName(query);
         return genreIterable;
     }
 

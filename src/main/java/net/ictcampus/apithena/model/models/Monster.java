@@ -18,9 +18,9 @@ public class Monster {
     @NotBlank(message = "Genre name can't be blank")
     private String name;
 
-    @OneToMany //Wir haben eine 1:m Beziehung Genre:Movie
-    @JsonBackReference //Verhindert endlos-loop
-    private Set<God> gods = new HashSet<>();
+    @NotNull
+    @NotBlank
+    private String characteristic;
 
     public Integer getId() {
         return id;
@@ -38,11 +38,11 @@ public class Monster {
         this.name = name;
     }
 
-    public Set<God> getMovies() {
-        return gods;
+    public String getCharacteristic() {
+        return characteristic;
     }
 
-    public void setMovies(Set<God> gods) {
-        this.gods = gods;
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
     }
 }
