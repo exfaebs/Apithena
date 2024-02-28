@@ -22,3 +22,13 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+/.idea/Apithena.iml
+/src/main/java/net/ictcampus/apithena/ApithenaApplication.java
+/src/test/java/net/ictcampus/apithena/ApithenaApplicationTests.java
+/src/main/resources/application.properties
+/gradle/wrapper/gradle-wrapper.properties
+/HELP.md
+/.idea/misc.xml
+/.idea/modules.xml
+/settings.gradle
+/.idea/vcs.xml
