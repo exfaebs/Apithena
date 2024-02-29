@@ -123,12 +123,15 @@ public class GodController {
     })
     public void deleteById(@PathVariable Integer id) {
         try {
-            God god = godService.findById(id);
-            godService.delete(god);
+            godService.deleteById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "God not found");
         }
     }
+
+
+
+
 
 
 //    public Iterable<Movie> findMovieByMovieName(@RequestParam String name) {

@@ -25,8 +25,8 @@ public class GodService {
         return god.orElseThrow(EntityNotFoundException::new);
     }
 
-    public Iterable<God> findByGodName(String query){
-        Iterable<God> godIterable = godRepository.findByGodName(query);
+    public Iterable<God> findByGodName(String name){
+        Iterable<God> godIterable = godRepository.findByGodName(name);
         return godIterable;
     }
 
@@ -42,28 +42,20 @@ public class GodService {
 
 
     public void update(God god){
-
             if (godRepository.existsById(god.getId())) {
                 godRepository.save(god);
             } else { throw new EntityNotFoundException();}
-
-
     }
-
-
-
-/* ----Erste einfache Version ---
-    public void update(God god) {
-
-        godRepository.save(god);}
-
-*/
 
     public void delete(God god){
         godRepository.delete(god);
     }
 
 
+    public void deleteById(Integer id){
+        God god = findById(id);
+        godRepository.delete(god);
+    }
 
 
 
