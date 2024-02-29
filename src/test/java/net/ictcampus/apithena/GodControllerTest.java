@@ -4,7 +4,6 @@ import net.ictcampus.apithena.controller.controllers.GodController;
 import net.ictcampus.apithena.controller.services.GodService;
 import net.ictcampus.apithena.controller.services.UserDetailsServiceImpl;
 import net.ictcampus.apithena.model.models.God;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.TimeZone;
 
-import static net.ictcampus.apithena.TestDataUtil.getTestGods;
+import static net.ictcampus.apithena.utils.TestDataUtil.getTestGods;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

@@ -1,4 +1,4 @@
-package net.ictcampus.apithena;
+package net.ictcampus.apithena.utils;
 
 
 import net.ictcampus.apithena.model.models.God;
