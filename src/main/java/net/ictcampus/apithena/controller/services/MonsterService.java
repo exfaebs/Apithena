@@ -19,7 +19,7 @@ public class MonsterService {
 
     public Monster findById(Integer id){
         Optional<Monster> genre = monsterRepository.findById(id);
-        return genre.orElseThrow(EntityNotFoundException::new); //Entity Genre exists or Error is thrown
+        return genre.orElseThrow(EntityNotFoundException::new); //Entity Monster exists or Error is thrown
     }
     public Iterable<Monster> findByName(String query){
         return monsterRepository.findMonsterByName(query);
@@ -33,7 +33,7 @@ public class MonsterService {
         monsterRepository.save(monster);
     }
 
-    public void delete(Monster monster) {monsterRepository.delete(monster);}
+    //public void delete(Monster monster) {monsterRepository.delete(monster);}
 
     public void deleteById(Integer ID) {monsterRepository.deleteById(ID);}
 

@@ -125,8 +125,8 @@ public class MonsterController {
     })
     public void deleteById(@PathVariable Integer id) {
         try {
-            Monster monster = monsterService.findById(id);
-            monsterService.delete(monster);
+
+            monsterService.deleteById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Monster not found");
         }

@@ -26,11 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 public class MonsterControllerTest {
 
-    // JSON-Gerüst für alle Filme (entspricht dem Gerüst von TestDataUtil: getTestMonsters())
-    private static final String JSON_ALL_MOVIES = "[{\"id\":1, \"name\": \"Movie1\", \"duration\": 120, \"genre\": { \"id\": 1, \"name\": \"Melodrama\"}}, " +
-            "{\"id\":2, \"name\": \"Movie2\", \"duration\": 120, \"genre\": { \"id\": 1, \"name\": \"Melodrama\"}}, "+
-            "{\"id\":3, \"name\": \"Movie3\", \"duration\": 120, \"genre\": { \"id\": 1, \"name\": \"Melodrama\"}}]";
-
+    // JSON-Gerüst für alle Monster (entspricht dem Gerüst von TestDataUtil: getTestMonsters())
     private static final String JSON_ALL_MONSTERS = "[{\"id\":1, \"name\": \"Monster1\", \"characteristic\": \"probably Shagged by Zeus\"}, " +
             "{\"id\":2, \"name\": \"Monster2\", \"characteristic\": \"probably Shagged by Zeus\"}, "+
             "{\"id\":3, \"name\": \"Monster3\", \"characteristic\": \"probably Shagged by Zeus\"}]";
@@ -63,10 +59,10 @@ public class MonsterControllerTest {
      */
     @Test
     public void checkGet_whenNoParam_thenAllMonstersReturned() throws Exception {
-        // gibt alle Filme aus, sobald findAll im gemockten MovieService aufgerufen wird
+        // gibt alle Monster aus, sobald findAll im gemockten MonsterService aufgerufen wird
         doReturn(TestDataMonstersUtil.getTestMonsters()).when(monsterService).findAll();
 
-        // GET-Request über localhost:8080/movies "geschickt"
+        // GET-Request über localhost:8080/monsters/ "geschickt"
         mockMvc.perform(get("/monsters/"))
                 // 200 (OK) wird erwartet -> bei erfolgreicher Abfrage, bekommen wir in der Regel
                 // den Statuscode 200 zurück
@@ -84,51 +80,66 @@ public class MonsterControllerTest {
     @Test
     public void checkGet_whenValidName_thenMonsterIsReturned() throws Exception {
         // lokale Variable für den Monsternamen, dass variabel getestet werden kann
-        String monsterName = "Monster2";
+        String monsterName = "Monster3";
 
-        // gibt das Monster "Movie3" aus sobald findByName im MonsterService aufgerufen wird
+        // gibt das Monster "Monster3" aus sobald findByName im MonsterService aufgerufen wird
         doReturn(TestDataMonstersUtil.getTestMonsters().subList(2, 3)).when(monsterService).findByName(monsterName);
 
-        // GET-Request über localhost:8080/movies "geschickt"
-        mockMvc.perform(get("/monsters")
-                // unserer URL wird zusätzlich ein Query-Parameter mitgegeben (unser Moviename)
-                // -> localhost:8080/movies?name=Movie3
+        // GET-Request über localhost:8080/monsters/ "geschickt"
+        mockMvc.perform(get("/monsters/")
+                // unserer URL wird zusätzlich ein Query-Parameter mitgegeben (unser Monstername)
+                // -> localhost:8080/monsters/?name=Monster3
                 .queryParam("name", monsterName))
                 // Statuscode 200 (OK) wird erwartet
                 .andExpect(status().isOk())
-                // auf der ersten Ebene des JSONs wird erwartet, dass der Name Movie3 auftaucht
+                // auf der ersten Ebene des JSONs wird erwartet, dass der Name Monster3 auftaucht
                 .andExpect(jsonPath("$[0].name").value(monsterName));
     }
+
+
 
     /**
      * POST-Request: neuer Film wird geaddet und überprüft
      * @throws Exception
      */
     @Test
-    public void checkPost_whenNewMovie_thenIsOk() throws Exception {
+    public void checkPost_whenNewMonster_thenIsOk() throws Exception {
 
-        // POST-Request über localhost:8080/movies "geschickt"
-        mockMvc.perform(post("/movies")
+        // POST-Request über localhost:8080/monsters/ "geschickt"
+        mockMvc.perform(post("/monsters/")
                 // der Inhalt in unserem Body entspricht einem JSON
                 .contentType("application/json")
-                // ein neues Movie-Objekt wird als JSON in den Body gegeben und mitgeschickt
-                .content("{\"id\":99, \"name\": \"NewMovie\", \"duration\": 135}"))
+                // ein neues Monster-Objekt wird als JSON in den Body gegeben und mitgeschickt
+                .content("{\"id\":99, \"name\": \"Monstera\", \"characteristic\": \"Zeusie-Pie\"}"))
                 // wir erwarten den Status 201 (CREATED)
                 .andExpect(status().isCreated());
     }
 
     /**
-     *  DELETE-Request: Film mit der ID 1 wird gelöscht und überprüft
+     *  DELETE-Request: Monster mit der ID 1 wird gelöscht und überprüft. Überprüft
      * @throws Exception
      */
     @Test
     public void checkDelete_whenIdGiven_thenIsOk() throws Exception {
-        // DELETE-Request über localhost:8080/movies/1 wird "ausgeführt"
-        mockMvc.perform(delete("/movies/1"))
+        // DELETE-Request über localhost:8080/monsters/1 wird "ausgeführt"
+        mockMvc.perform(delete("/monsters/1"))
                 // Status 200 (OK) wird erwartet
                 .andExpect(status().isOk());
 
         // über Mockito wird verifiziert, ob die ID bei deleteById der ID 1 entspricht
         Mockito.verify(monsterService).deleteById(eq(1));
+    }
+
+    @Test
+    public void checkPut_whenNameChanged() throws Exception {
+        //PUT-Request über localhost:8080/monsters/ wird "ausgeführt"
+        mockMvc.perform(put("/monsters/")
+                // der Inhalt in unserem Body entspricht einem JSON
+                .contentType("application/json")
+                // ein neues Monster-Objekt wird als JSON in den Body gegeben und mitgeschickt
+                .content("{\"id\":1, \"name\": \"MonsterPut\", \"characteristic\": \"Zeusie-Pie\"}"))
+
+                .andExpect(status().isOk());
+
     }
 }
