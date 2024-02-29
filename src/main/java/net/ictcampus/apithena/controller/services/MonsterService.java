@@ -35,6 +35,8 @@ public class MonsterService {
 
     public void delete(Monster monster) {monsterRepository.delete(monster);}
 
+    public void deleteById(Integer ID) {monsterRepository.deleteById(ID);}
+
     public void update(Monster monster) {
         if (monsterRepository.existsById(monster.getId())){
             monsterRepository.save(monster);

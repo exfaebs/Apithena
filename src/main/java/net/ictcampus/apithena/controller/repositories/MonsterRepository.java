@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface MonsterRepository extends CrudRepository<Monster, Integer> {
 
     Iterable<Monster> findMonsterByName(@Param("name") String name);
+
 }
