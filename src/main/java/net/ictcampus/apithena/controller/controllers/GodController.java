@@ -11,7 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/movies/")
+@RequestMapping("/gods/")
 public class GodController {
 
     private final GodService godService;
@@ -26,33 +26,32 @@ public class GodController {
         try {
             return godService.findById(id);
         } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "God not found");
         }
     }
 
     @GetMapping
-    public Iterable<God> findByNameORGenreName(@RequestParam(required = false) String name,
-                                               @RequestParam(required = false) String genre) {
+    public Iterable<God> findByName(@RequestParam(required = false) String name){
         try {
             if (name != null) {
-                return godService.findByMovieName(name);
-            } else if (genre != null) {
-                return godService.findByGenreName(genre);
+                return godService.findByGodName(name);
+
             } else {
                 return godService.findAll();
             }
         } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "God not found");
         }
     }
 
     @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
     public void insert(@Valid @RequestBody God god) {
         try {
 
             godService.insert(god);
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert movie");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert god");
         }
     }
 
@@ -67,11 +66,14 @@ public class GodController {
     }
 
     @PutMapping(consumes = "application/json")
-    public void update(@Valid @RequestBody God god) { //todo check if working
+
+
+    public void update(@Valid @RequestBody God god) {   // to check if working
+
         try {
             godService.update(god);
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update god");
         }
     }
 
