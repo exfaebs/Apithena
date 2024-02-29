@@ -11,17 +11,19 @@ public class God {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Movie name is required")
-    @NotBlank(message = "Movie name can't be empty")
+    @NotNull(message = "God name is required")
+    @NotBlank(message = "God name can't be empty")
     private String name;
 
-    @NotNull(message = "Movie duration is required")
-    @NotBlank(message = "Movie duration can't be empty")
-    private Integer duration;
 
-    @ManyToOne
-    @JoinColumn(name = "genre_id") //Hibernate wird mitgeteilt, wo die betreffende Zeile in der Datenbank ist.
-    private Monster monster;
+
+    @NotNull(message = "Jurisdiction is required")
+    @NotBlank(message = "Jurisdiction cannot be empty")
+    private String jurisdiction;
+
+
+
+    //---------- GET & SET ----------------------------------------------------
 
     public Integer getId() {
         return id;
@@ -39,19 +41,11 @@ public class God {
         this.name = name;
     }
 
-    public Integer getDuration() {
-        return duration;
+    public String getJurisdiction() {
+        return jurisdiction;
     }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public Monster getGenre() {
-        return monster;
-    }
-
-    public void setGenre(Monster monster) {
-        this.monster = monster;
+    public void setJurisdiction(String jurisdiction) {
+        this.jurisdiction = jurisdiction;
     }
 }
