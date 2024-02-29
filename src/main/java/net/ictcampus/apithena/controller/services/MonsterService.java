@@ -22,13 +22,11 @@ public class MonsterService {
         return genre.orElseThrow(EntityNotFoundException::new); //Entity Genre exists or Error is thrown
     }
     public Iterable<Monster> findByName(String query){
-        Iterable<Monster> genreIterable = monsterRepository.findMonsterByName(query);
-        return genreIterable;
+        return monsterRepository.findMonsterByName(query);
     }
 
     public Iterable<Monster> findAll(){
-        Iterable<Monster> genreIterable = monsterRepository.findAll();
-        return genreIterable;
+        return monsterRepository.findAll();
     }
 
     public void insert(Monster monster){
@@ -38,6 +36,12 @@ public class MonsterService {
     public void delete(Monster monster) {monsterRepository.delete(monster);}
 
     public void update(Monster monster) {
-        monsterRepository.save(monster);}
+        if (monsterRepository.existsById(monster.getId())){
+            monsterRepository.save(monster);
+        } else{
+            throw new EntityNotFoundException();
+        }
+
+    }
 
 }
