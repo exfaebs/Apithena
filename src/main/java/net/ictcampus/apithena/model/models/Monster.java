@@ -18,8 +18,8 @@ public class Monster {
     @NotBlank(message = "Genre name can't be blank")
     private String name;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Characteristics are required")
+    @NotBlank(message= "Characteristics shall not be blank")
     private String characteristic;
 
     public Integer getId() {

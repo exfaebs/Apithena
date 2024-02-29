@@ -35,6 +35,8 @@ public class MonsterService {
         monsterRepository.save(monster);
     }
 
+    public void delete(Monster monster) {monsterRepository.delete(monster);}
+
     public void update(Monster monster) {
         monsterRepository.save(monster);}
 

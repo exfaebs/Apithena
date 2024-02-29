@@ -1,6 +1,7 @@
 package net.ictcampus.apithena.controller.controllers;
 
 import net.ictcampus.apithena.controller.services.MonsterService;
+import net.ictcampus.apithena.model.models.God;
 import net.ictcampus.apithena.model.models.Monster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/genres/")
+@RequestMapping("/monsters/")
 public class MonsterController {
 
     private final MonsterService monsterService;
@@ -43,12 +44,13 @@ public class MonsterController {
     }
 
     @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
     public void insert(@RequestBody Monster monster){
         try{
-            System.out.println(monster.getName()); //todo remove after debug
+
             monsterService.insert(monster);
         } catch(RuntimeException e){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert Genre");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert monster");
         }
     }
 
@@ -57,7 +59,17 @@ public class MonsterController {
         try{
             monsterService.update(monster);
         } catch(RuntimeException e){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update monster");
+        }
+    }
+
+    @DeleteMapping(path = {"{id}"})
+    public void deleteById(@PathVariable Integer id) {
+        try {
+            Monster monster = monsterService.findById(id);
+            monsterService.delete(monster);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Monster not found");
         }
     }
 
