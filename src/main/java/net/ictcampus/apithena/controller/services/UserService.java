@@ -29,23 +29,16 @@ public class UserService {
     }
 
     public Iterable<User> findByName(String query){
-        Iterable<User> userIterable = userRepository.findByName(query);
-        return userIterable;
+        return userRepository.findByName(query);
     }
 
     public Iterable<User> findAll(){
-        Iterable<User> userIterable = userRepository.findAll();
-        return userIterable;
+        return userRepository.findAll();
     }
 
-//    public void insert(String username, String password){
-//        User newUser = new User();
-//        newUser.setPassword(password);
-//        newUser.setUsername(username);
-//        userRepository.save(newUser);
-//    }
+
     public void signUp(User user){
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword())); //encrypts the password, before saving
         userRepository.save(user);
     }
 
@@ -54,8 +47,14 @@ public class UserService {
     }
 
     public void update(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        if (userRepository.existsById(user.getId())){
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword())); //encrypts password, before saving
+            userRepository.save(user);
+        }
+        else {
+            throw new EntityNotFoundException();
+        }
+
     }
 
 
