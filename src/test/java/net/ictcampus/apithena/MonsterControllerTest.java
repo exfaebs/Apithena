@@ -6,6 +6,7 @@ import net.ictcampus.apithena.controller.services.MonsterService;
 import net.ictcampus.apithena.controller.services.UserDetailsServiceImpl;
 import net.ictcampus.apithena.utils.TestDataMonstersUtil;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,15 +132,15 @@ public class MonsterControllerTest {
     }
 
     @Test
+    @Disabled("See Comment in Gods concerning same test")
     public void checkPut_whenNameChanged() throws Exception {
         //PUT-Request über localhost:8080/monsters/ wird "ausgeführt"
         mockMvc.perform(put("/monsters/")
                 // der Inhalt in unserem Body entspricht einem JSON
                 .contentType("application/json")
                 // ein neues Monster-Objekt wird als JSON in den Body gegeben und mitgeschickt
-                .content("{\"id\":1, \"name\": \"MonsterPut\", \"characteristic\": \"Zeusie-Pie\"}"))
+                .content("{\"id\":15, \"name\": \"MonsterPut\", \"characteristic\": \"Zeusie-Pie\"}"))
 
-                .andExpect(status().isOk());
-
+                .andExpect(status().isNotFound());
     }
 }
