@@ -42,12 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 //Excepts Sign-up and Swagger-URLs from Authentication
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                .antMatchers(HttpMethod.GET, API_DOCUMENTATION_URLS).permitAll()
+                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll() //only Post-Requests are allowed
+                .antMatchers(HttpMethod.GET, API_DOCUMENTATION_URLS).permitAll() //only Get-Requests are Allowed
                 .anyRequest().authenticated() //all (other) requests need to be authenticated
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager())) //Our Method will be used throughout project
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))  //Our Method will be used throughout project
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
@@ -57,6 +57,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
+    /**
+     * Will be used for a Frontend to access and connect
+     * @return
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
