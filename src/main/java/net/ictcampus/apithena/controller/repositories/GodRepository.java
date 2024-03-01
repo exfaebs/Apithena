@@ -10,16 +10,11 @@ import org.springframework.stereotype.Repository;
 public interface GodRepository extends CrudRepository<God, Integer> {
 
 
+    // eigene Query, um gott nach namen abzufragen,
     @Query("SELECT m FROM God m WHERE m.name LIKE CONCAT ('%', :name, '%')")
     Iterable<God> findByGodName(@Param("name") String name);
 
 
-    /* ----------------wird gebraucht, falls god und monster eine Beziehung führen---------------------
 
-    @Query("SELECT m FROM God m Join Monster g WHERE g.name LIKE CONCAT ('%', :name, '%')")
-    Iterable<God> findByGenreName(@Param("name") String name);
-
-    ---------------------------
-    */
 
 }

@@ -27,7 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 public class GodControllerTest {
 
-    // todo : öhm vllt noch ein JSOn String für alle Götter, um zu vergleichen, ob Ausgabe richtig ist?
+
+    // der Inhalt von Methode TestGods sollte wie hier sein
     private static final String JSON_ALL_GODS = "[{\"id\":1, \"name\":\"God1\", \"jurisdiction\":\"Setting Sun\"}," +
             "{\"id\":2, \"name\": \"God2\", \"jurisdiction\": \"Setting Sun\"}," +
             "{\"id\":3, \"name\": \"God3\", \"jurisdiction\": \"Setting Sun\"}]";
@@ -73,8 +74,8 @@ public class GodControllerTest {
         // gibt alle Götter aus, die in der Methode TestGods in Data für Testing erstellt ist, sobald findAll im gemockten GottService aufgerufen wird
         doReturn(getTestGods()).when(godService).findAll();
 
-        // GET-Request über localhost:8080/movies "geschickt"
-        mockMvc.perform(get("/gods/"))
+        // GET-Request über localhost:8080/gods/ "geschickt"
+        mockMvc.perform(get("/gods"))
                 // 200 (OK) wird erwartet -> bei erfolgreicher Abfrage, bekommen wir in der Regel
                 // den Statuscode 200 zurück
                 .andExpect(status().isOk())
@@ -89,20 +90,20 @@ public class GodControllerTest {
      */
     @Test
     public void checkGet_whenValidName_thenGodIsReturned() throws Exception {
-        // lokale Variable für den Filmname, dass variabel getestet werden kann
+        // lokale Variable für den Gottname, dass variabel getestet werden kann
         String godName = "God3";
 
-        // gibt den Film "Movie3" aus sobald findByName im MovieService aufgerufen wird
+        // gibt den Gott "God3" aus sobald findByName im GottService aufgerufen wird
         doReturn(getTestGods().subList(2, 3)).when(godService).findByGodName(godName);
 
-        // GET-Request über localhost:8080/movies "geschickt"
-        mockMvc.perform(get("/gods/")
-                        // unserer URL wird zusätzlich ein Query-Parameter mitgegeben (unser Moviename)
-                        // -> localhost:8080/movies?name=Movie3
+        // GET-Request über localhost:8080/gods "geschickt"
+        mockMvc.perform(get("/gods")
+                        // unserer URL wird zusätzlich ein Query-Parameter mitgegeben (unser Godname)
+                        // -> localhost:8080/gods/?name=Movie3
                         .queryParam("name", godName))
                 // Statuscode 200 (OK) wird erwartet
                 .andExpect(status().isOk())
-                // auf der ersten Ebene des JSONs wird erwartet, dass der Name Movie3 auftaucht
+                // auf der ersten Ebene des JSONs wird erwartet, dass der Name God3 auftaucht
                 .andExpect(jsonPath("$[0].name").value(godName));
     }
 
@@ -114,10 +115,10 @@ public class GodControllerTest {
     public void checkPost_whenNewGod_thenIsOk() throws Exception {
 
         // POST-Request über localhost:8080/gods/ "geschickt"
-        mockMvc.perform(post("/gods/")
+        mockMvc.perform(post("/gods")
                         // der Inhalt in unserem Body entspricht einem JSON
                         .contentType("application/json")
-                        // ein neues Movie-Objekt wird als JSON in den Body gegeben und mitgeschickt
+                        // ein neues God-Objekt wird als JSON in den Body gegeben und mitgeschickt
                         .content("{\"id\":99, \"name\": \"NewGod\", \"jurisdiction\": \"God Killer\"}"))
                 // wir erwarten den Status 201 (CREATED)
                 .andExpect(status().isCreated());
@@ -131,11 +132,12 @@ public class GodControllerTest {
     @Test
     @Disabled("Comment from Michi: This test cannot be resolved, for ominous reasons. Code is correct.")
     public void checkPut_whenNewGod_thenConflict() throws Exception{
-        // PUT-Request über localhost:8080/gods/ geschickt
-        mockMvc.perform(put("/gods/")
+        // PUT-Request über localhost:8080/gods geschickt
+        mockMvc.perform(put("/gods")
                     .contentType("application/json")
                     .content("{\"id\":98, \"name\": \"NewGod\", \"jurisdiction\": \"God Killer\"}"))
                 // sollte nicht möglich sein, da nicht neue Gott erstellt wird
+                // status 409 wird erwartet
                 .andExpect(status().isConflict());
 
     }
@@ -147,8 +149,8 @@ public class GodControllerTest {
      */
     @Test
     public void checkDelete_whenIdGiven_thenIsOk() throws Exception {
-        // DELETE-Request über localhost:8080/movies/1 wird "ausgeführt"
-        God godToKill = new God();
+        // DELETE-Request über localhost:8080/gods/1 wird "ausgeführt"
+
         mockMvc.perform(delete("/gods/1"))
                 // Status 200 (OK) wird erwartet
                 .andExpect(status().isOk());
@@ -159,18 +161,18 @@ public class GodControllerTest {
 }
 
     /**
-     *  DELETE-Request: Gott mit der ID 1 wird gelöscht und überprüft
+     *  GET-Request: Gott mit der ID 1 wird gesucht und überprüft
      * @throws Exception
      */
     @Test
     public void checkGet_whenIdGiven_thenIsOk() throws Exception {
-        // GET-Request über localhost:8080/movies/1 wird "ausgeführt"
+        // GET-Request über localhost:8080/gods/1 wird "ausgeführt"
 
         mockMvc.perform(get("/gods/1"))
                 // Status 200 (OK) wird erwartet
                 .andExpect(status().isOk());
 
-        // über Mockito wird verifiziert, ob die ID bei deleteById der ID 1 entspricht
+        // über Mockito wird verifiziert, ob die ID bei findById der ID 1 entspricht
         Mockito.verify(godService).findById(eq(1));
 
     }

@@ -7,17 +7,20 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import net.ictcampus.apithena.controller.services.GodService;
 import net.ictcampus.apithena.model.models.God;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.Random;
 
 @RestController
-@RequestMapping("/gods/")
+@RequestMapping("/gods")
 public class GodController {
 
     private final GodService godService;
@@ -31,9 +34,15 @@ public class GodController {
 
 
     @GetMapping(path = "{id}")
+    // Swagger Annotationen
+    // Operation = beschreibt, was diese Methode ausführt
     @Operation(summary = "Find God with his ID")
+    // beschreibt, was für APi Response ausgegeben werden können,
+    // Content = Zeigt welcher Typ als Antwort zurückgegeben wird, entweder leer oder den object ausgeben
+    // Schema = Zeigt auf was zurückgegeben wird, anhand einer Klasse, die wir definieren.
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "God was found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Validation failed", content = @Content),
             @ApiResponse(responseCode = "403", description = "Forbidden for God's sake", content = @Content),
             @ApiResponse(responseCode = "404", description = "God cannot be found", content = @Content)
     })
@@ -49,6 +58,7 @@ public class GodController {
     @Operation(summary = "Find all Gods")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "God was found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Validation failed", content = @Content),
             @ApiResponse(responseCode = "403", description = "Forbidden for God's sake", content = @Content),
             @ApiResponse(responseCode = "404", description = "God cannot be found", content = @Content)
     })
@@ -73,15 +83,15 @@ public class GodController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "A new God was born",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = God.class))}),
-
+            @ApiResponse(responseCode = "403", description = "Forbidden for God's sake", content = @Content),
             @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = God.class))}),
+                    content = @Content),
             @ApiResponse(responseCode = "409", description = "Could not create God", content = @Content)
     })
     @ResponseStatus(HttpStatus.CREATED)
+    // @Valid = damit nur valide und korrekte Daten von Backend verarbeitet werden
     public void insert(@Valid @RequestBody God god) {
         try {
-
             godService.insert(god);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not insert God");
@@ -97,9 +107,10 @@ public class GodController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = God.class))}),
 
             @ApiResponse(responseCode = "400", description = "Validation failed",
-                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = God.class))}),
+                    content = @Content),
 
             @ApiResponse(responseCode = "403", description = "Forbidden for God's sake", content = @Content),
+            @ApiResponse(responseCode = "404",  description = "Could not find God", content = @Content),
             @ApiResponse(responseCode = "409", description = "Could not update god", content = @Content)
     })
 
@@ -107,7 +118,11 @@ public class GodController {
 
         try {
             godService.update(god);
-        } catch (RuntimeException e) {
+        }
+        catch (EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find God");
+        }
+        catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not update God");
         }
     }
