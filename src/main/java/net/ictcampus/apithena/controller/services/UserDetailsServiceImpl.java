@@ -14,6 +14,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    // Weil Spring Boot bzw. Spring Security nur ihren User akzeptiert für Authentication und Authorization
+    // machen wir mit dieser Methode aus unserem User Objekt ein Spring Security User Objekt.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
