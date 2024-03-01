@@ -54,7 +54,7 @@ public class MonsterControllerTest {
     }
 
     /**
-     * GET-Request: Alle Filme werden herausgegeben und getestet, ob sie im richtigen JSON-Format
+     * GET-Request: Alle Monster werden herausgegeben und getestet, ob sie im richtigen JSON-Format
      * geschickt werden
      * @throws Exception
      */
@@ -75,7 +75,7 @@ public class MonsterControllerTest {
     
 
     /**
-     *  GET-Request: Der richtige Film über name-Query wird getestet
+     *  GET-Request: Das richtige Monster über name-Query wird getestet
      * @throws Exception
      */
     @Test
@@ -100,7 +100,7 @@ public class MonsterControllerTest {
 
 
     /**
-     * POST-Request: neuer Film wird geaddet und überprüft
+     * POST-Request: Neues Monster wird hinzugefügt und überprüft
      * @throws Exception
      */
     @Test
@@ -142,5 +142,20 @@ public class MonsterControllerTest {
                 .content("{\"id\":15, \"name\": \"MonsterPut\", \"characteristic\": \"Zeusie-Pie\"}"))
 
                 .andExpect(status().isNotFound());
+    }
+
+    /**
+     *  Get-Request: Wird Monster mit ID 1 ausgegeben, wenn es per get gesucht wird?
+     * @throws Exception
+     */
+    @Test
+    public void checkGet_whenIdGiven_thenIsOk() throws Exception {
+        // Get-Request über localhost:8080/monsters/1 wird "ausgeführt"
+        mockMvc.perform(get("/monsters/1"))
+                // Status 200 (OK) wird erwartet
+                .andExpect(status().isOk());
+
+        // über Mockito wird verifiziert, ob die ID bei deleteById der ID 1 entspricht
+        Mockito.verify(monsterService).findById(eq(1));
     }
 }
