@@ -64,7 +64,7 @@ public class MonsterControllerTest {
         doReturn(TestDataMonstersUtil.getTestMonsters()).when(monsterService).findAll();
 
         // GET-Request über localhost:8080/monsters/ "geschickt"
-        mockMvc.perform(get("/monsters/"))
+        mockMvc.perform(get("/monsters"))
                 // 200 (OK) wird erwartet -> bei erfolgreicher Abfrage, bekommen wir in der Regel
                 // den Statuscode 200 zurück
                 .andExpect(status().isOk())
@@ -87,7 +87,7 @@ public class MonsterControllerTest {
         doReturn(TestDataMonstersUtil.getTestMonsters().subList(2, 3)).when(monsterService).findByName(monsterName);
 
         // GET-Request über localhost:8080/monsters/ "geschickt"
-        mockMvc.perform(get("/monsters/")
+        mockMvc.perform(get("/monsters")
                 // unserer URL wird zusätzlich ein Query-Parameter mitgegeben (unser Monstername)
                 // -> localhost:8080/monsters/?name=Monster3
                 .queryParam("name", monsterName))
@@ -107,7 +107,7 @@ public class MonsterControllerTest {
     public void checkPost_whenNewMonster_thenIsOk() throws Exception {
 
         // POST-Request über localhost:8080/monsters/ "geschickt"
-        mockMvc.perform(post("/monsters/")
+        mockMvc.perform(post("/monsters")
                 // der Inhalt in unserem Body entspricht einem JSON
                 .contentType("application/json")
                 // ein neues Monster-Objekt wird als JSON in den Body gegeben und mitgeschickt
@@ -135,7 +135,7 @@ public class MonsterControllerTest {
     @Disabled("See Comment in Gods concerning same test")
     public void checkPut_whenNameChanged() throws Exception {
         //PUT-Request über localhost:8080/monsters/ wird "ausgeführt"
-        mockMvc.perform(put("/monsters/")
+        mockMvc.perform(put("/monsters")
                 // der Inhalt in unserem Body entspricht einem JSON
                 .contentType("application/json")
                 // ein neues Monster-Objekt wird als JSON in den Body gegeben und mitgeschickt

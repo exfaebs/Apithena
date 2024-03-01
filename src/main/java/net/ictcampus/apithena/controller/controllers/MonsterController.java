@@ -16,7 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/monsters/")
+@RequestMapping("/monsters")
 
 
 public class MonsterController {
