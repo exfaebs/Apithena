@@ -15,8 +15,8 @@ public class SwaggerConfiguration {
     public OpenAPI openAPI() {
         return new OpenAPI().addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
-                .info(new Info().title("Campflix")
-                        .description("An example API for Basisausbildung ICT-Campus")
+                .info(new Info().title("APIthena") //description shown at top of swagger-ui
+                        .description("An API to a database containing Gods and Monsters")
                         .version("1.0"));
     }
 

@@ -20,11 +20,11 @@ import static net.ictcampus.apithena.controller.security.SecurityConstants.API_D
 import static net.ictcampus.apithena.controller.security.SecurityConstants.SIGN_UP_URL;
 import static org.apache.commons.lang3.BooleanUtils.and;
 
-@Configuration
-@EnableWebSecurity
+@Configuration //indicates, this is a configuration class
+@EnableWebSecurity //indicates, that Setting for Security ar in this class
 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private UserDetailsServiceImpl userDetailsService; //wurde ohne impl geschrieben, da dies nicht existiert
+    private UserDetailsServiceImpl userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public SecurityConfiguration(UserDetailsServiceImpl userDetailsService,
@@ -33,12 +33,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    /**
+     *
+     * @param http Http-Entity of spring framework
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
+                //Excepts Sign-up and Swagger-URLs from Authentication
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.GET, API_DOCUMENTATION_URLS).permitAll()
-                .anyRequest().authenticated() //lässt alle Zugriffe auf signup zu, welche Post sind
+                .anyRequest().authenticated() //all (other) requests need to be authenticated
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
