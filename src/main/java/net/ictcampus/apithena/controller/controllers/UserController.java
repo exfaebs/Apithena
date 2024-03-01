@@ -17,11 +17,11 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/users") //nimmt alle /users request an
+@RequestMapping("/users") //takes all Requests which go to {{baseurl}}/users
 public class UserController {
 
 
-    private final UserService userService;
+    private final UserService userService; //declares the userservice
 
     @Autowired
     public UserController(UserService userService) {
@@ -36,7 +36,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "There is no User with this ID", content = {@Content}),
             @ApiResponse(responseCode = "403", description = "You are not authorized to do that", content = @Content)
     })
-    public User findById(@PathVariable Integer id) { //wichtig dass es Integer ist und nicht int
+    public User findById(@PathVariable Integer id) { //has to be Integer
         try{
             return userService.findById(id);
         } catch(EntityNotFoundException e){
@@ -44,7 +44,7 @@ public class UserController {
         }
     }
     @GetMapping
-    @Operation(summary = "Show all users (empty) or find by name with parameter")
+    @Operation(summary = "Show all users (leave empty) or find by name with parameter")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Users(s) under this name found",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Monster.class))}),
@@ -63,7 +63,7 @@ public class UserController {
 
         }
 
-        catch(EntityNotFoundException e){
+        catch(EntityNotFoundException e){ //catch Exception thrown by userService, if none found
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
@@ -82,7 +82,8 @@ public class UserController {
     public void signUp(@Valid @RequestBody User user){
         try{
             userService.signUp(user);
-        } catch(RuntimeException e){
+        }
+        catch(RuntimeException e){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Could not register");
         }
     }
@@ -107,7 +108,7 @@ public class UserController {
     }
 
     @PutMapping(consumes = "application/json")
-    @Operation(summary = "Update a user")
+    @Operation(summary = "Update a user. Creation Disabled")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User was updated sucessfully",
             content = @Content),
