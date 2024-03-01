@@ -27,6 +27,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.authenticationManager = authenticationManager;
     }
 
+    //Wir erben mit dieser Klasse von der Standard Spring Security Klasse.
+    // Mithilfe dieser können wir Benutzer authentisieren.
+    // Mit der attemptAuthentication Funktion entnehmen wir aus dem Request den Usernamen sowie das Passwort
+    // und versuchen uns anzumelden.
+    // Falls dies nicht funktioniert, werfen wir eine RuntimeException.
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
@@ -44,6 +49,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
     }
 
+
+    // Die successfulAuthentication Methode wird nach Erfolg der attemptAuthentication Methode ausgeführt.
+    // Diese erstellt ein neues JWT.
+    // Wir sehen auch, dass wir die Variablen aus den SecurityConstants verwenden, um unser JWT zu erstellen.
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,

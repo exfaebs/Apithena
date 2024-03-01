@@ -7,16 +7,20 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class God {
 
+    // mit dieser annotation wird bestimmt, dass diese Variable mit Primary Key in Datenbank tabelle God gemappt wird
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
+    // darf nicht null oder leer sein
     @NotNull(message = "God name is required")
     @NotBlank(message = "God name can't be empty")
     private String name;
 
 
 
+    // darf nicht null oder leer sein
     @NotNull(message = "Jurisdiction is required")
     @NotBlank(message = "Jurisdiction cannot be empty")
     private String jurisdiction;
