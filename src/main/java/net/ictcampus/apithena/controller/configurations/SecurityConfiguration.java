@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //Excepts Sign-up and Swagger-URLs from Authentication
                 .antMatchers(OVERRIDE_JWT_URL).permitAll()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll() //only Post-Requests are allowed
+                .antMatchers(HttpMethod.GET, All_GODS_URL).permitAll() //only Post-Requests are allowed
                 .antMatchers(HttpMethod.GET, API_DOCUMENTATION_URLS).permitAll() //only Get-Requests are Allowed
                 .anyRequest().authenticated() //all (other) requests need to be authenticated
                 .and()
