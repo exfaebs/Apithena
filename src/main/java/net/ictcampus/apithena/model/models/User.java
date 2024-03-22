@@ -24,9 +24,19 @@ public class User {
     //@Length(min=6,max = 255)
     private String password;
 
+    private String name;
+
     public User() {}
 
     //getter and setter
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public Integer getId() {
         return id;
     }
