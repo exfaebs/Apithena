@@ -7,7 +7,7 @@ public class SecurityConstants {
 
     // diese  kann der user ohne login verwenden, wird in SecurityConfiguration definiert
     public static final String SIGN_UP_URL = "/users/sign-up";
-    public static final String All_GODS_URL = "/gods/";
+    public static final String All_GODS_URL = "/gods/**";
 
 
 
