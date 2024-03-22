@@ -63,6 +63,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
+        try {
+            res.setCharacterEncoding("UTF-8");
+            res.setContentType("application/json");
+            String myJson = "{\"accesstoken\": \"" + token + "\"}";
+            res.getWriter().write(myJson);
+            res.getWriter().flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
 
