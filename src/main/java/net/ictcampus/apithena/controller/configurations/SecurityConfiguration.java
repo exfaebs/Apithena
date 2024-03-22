@@ -16,8 +16,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static net.ictcampus.apithena.controller.security.SecurityConstants.API_DOCUMENTATION_URLS;
-import static net.ictcampus.apithena.controller.security.SecurityConstants.SIGN_UP_URL;
+import static net.ictcampus.apithena.controller.security.SecurityConstants.*;
 import static org.apache.commons.lang3.BooleanUtils.and;
 
 @Configuration //indicates, this is a configuration class
@@ -42,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 //Excepts Sign-up and Swagger-URLs from Authentication
+                .antMatchers(OVERRIDE_JWT_URL).permitAll()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll() //only Post-Requests are allowed
                 .antMatchers(HttpMethod.GET, API_DOCUMENTATION_URLS).permitAll() //only Get-Requests are Allowed
                 .anyRequest().authenticated() //all (other) requests need to be authenticated

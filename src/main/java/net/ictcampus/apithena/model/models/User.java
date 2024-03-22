@@ -24,6 +24,8 @@ public class User {
     //@Length(min=6,max = 255)
     private String password;
 
+//    private String fullName; todo integrate somehow
+
     public User() {}
 
     //getter and setter
@@ -39,6 +41,12 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+//    public String getFullName() {
+//        return username;
+//    }
+//    public void setFullName(String fullName) {
+//        this.fullName = fullName;
+//    }
     public String getPassword() {
         return password;
     }
