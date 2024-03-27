@@ -16,6 +16,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+
 import static net.ictcampus.apithena.controller.security.SecurityConstants.*;
 import static org.apache.commons.lang3.BooleanUtils.and;
 
@@ -62,9 +64,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @return
      */
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // Erlaubt Origins nur von localhost:3000
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE")); // Erlaubt HTTP-Methoden
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type")); // Erlaubt Header
+        configuration.setAllowCredentials(true); // Erlaubt Cookies
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Anwendung der Konfiguration auf alle Pfade
         return source;
     }
 
